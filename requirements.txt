@@ -4,3 +4,4 @@ streamlit==1.16.0      # Streamlit version
 opencv-python-headless  # For OpenCV (avoids unnecessary GUI dependencies)
 Pillow                 # For image processing
 numpy                  # If you're using NumPy for numerical operations
+altair==4.2.0
