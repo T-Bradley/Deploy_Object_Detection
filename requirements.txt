@@ -5,3 +5,4 @@ opencv-contrib-python-headless  # For OpenCV (avoids unnecessary GUI dependencie
 Pillow                 # For image processing
 numpy                  # If you're using NumPy for numerical operations
 altair==4.2.0
+openvino
