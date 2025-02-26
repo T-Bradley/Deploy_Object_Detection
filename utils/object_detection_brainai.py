@@ -52,7 +52,7 @@ class ObjectDetectionModel():
         camera = cv2.VideoCapture(temporary_location)
         fps = camera.get(cv2.CAP_PROP_FPS)
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
-        video_row=[]
+        processed_frames = []
         total_frames = int(camera.get(cv2.CAP_PROP_FRAME_COUNT))
         progress_bar = st.progress(0)
         frame_count = 0
@@ -64,16 +64,16 @@ class ObjectDetectionModel():
             if ret:
                 img_plot, _ = self.process_image(frame)
                 st_frame.image(img_plot, channels = "BGR")
-                video_row.append(cv2.cvtColor(img_plot,cv2.COLOR_BGR2RGB))
+                processed_frames .append(cv2.cvtColor(img_plot,cv2.COLOR_BGR2RGB))
                 frame_count +=1
-                progress_bar.progress(frame_count/total_frames, text = None)
+                progress_bar.progress(frame_count/total_frames)
     
             else:
                 camera.release()
                 st_frame.empty()
                 progress_bar.empty()
                 break
-        clip = mpy.ImageSequenceClip(video_row,fps=fps)
+        clip = mpy.ImageSequenceClip(processed_frames, fps=fps)
         clip.write_videofile(temp_file.name)
     
         return temp_file.name
